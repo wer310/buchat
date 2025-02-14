@@ -6,6 +6,37 @@ var chatObject = JSON.parse(data);
 const PORT = process.env.PORT || 3000;
 var app = express();
 
+const crypto = require('crypto');
+
+function generateRandomString(ipAddress) {
+  // Создаём хеш из IP-адреса
+  const hash = crypto.createHash('sha256');
+  hash.update(ipAddress);
+
+  // Получаем хеш в виде строки
+  const hashString = hash.digest('hex');
+
+  // Генерируем строку из случайных символов длинной в 10 символов
+  const randomString = Array(10).fill(0).map(() => {
+    const charCode = hashString.charCodeAt(Math.floor(Math.random() * hashString.length));
+    return String.fromCharCode(charCode);
+  }).join('');
+
+  return hashString.slice(10);
+}
+
+function makeid(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
+
 //middleware: request handling
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -39,7 +70,8 @@ function getChatData(request, response) {
 }
 
 function addChatDataElement(request, response) {
-    chatObject.data.push({name: request.body.name, message: request.body.message});
+    var ip = request.headers['x-forwarded-for'] || request.socket.remoteAddress
+    chatObject.data.push({name: request.body.name + "(" + generateRandomString(ip) + ")", message: request.body.message});
     var data = JSON.stringify(chatObject, null, 2);
     fs.writeFile('db/data.json', data, finished);
 

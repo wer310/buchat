@@ -1,79 +1,110 @@
+/* Глобальные стили */
+
 * {
-    padding: 0;
-    margin: 0;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-html {
+:root {
     font-size: 18px;
 }
 
 body {
-    font-family: Helvetica, sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    background-color: #f7f7f7; /* светлый фон */
 }
+
+/* Стили хедера */
 
 #header {
     margin-left: 10px;
     line-height: 3.3em;
+    background-color: #34c759; /* зеленый цвет, напоминающий цвет травы */
+    color: #fff; /* белый текст */
+    padding: 10px; /* отступы */
+    border-radius: 10px 10px 0 0; /* закругленные углы */
 }
 
-#chatArea
-{
+/* Стили области чата */
+
+#chatArea {
     position: absolute;
     top: 60px;
     width: calc(100% - 25px);
     height: calc(84%);
     margin-left: 10px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    border: 1px solid black;
+    overflow-y: auto;
+    border: 1px solid #ddd; /* светлый бордер */
+    background-color: #fff; /* белый фон */
+    border-radius: 0 0 10px 10px; /* закругленные углы */
+    padding: 10px; /* отступы */
 }
 
 .chatArea__text {
     font-size: 16px;
     line-height: 1.25em;
     text-indent: 5px;
+    color: #666; /* темный серый текст */
 }
 
+/* Стили области ввода */
+
 #inputArea {
-    position:absolute;
-    bottom:12px;
-    width:100%;
+    position: absolute;
+    bottom: 12px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #34c759; /* зеленый цвет, напоминающий цвет травы */
+    padding: 10px; /* отступы */
+    border-radius: 10px; /* закругленные углы */
 }
 
 #inputArea__name {
+    width: 15%;
+    height: 30px;
     margin-left: 10px;
-    width:15%;
-    height:30px;
-    resize: none;
-    border: 1px solid black;
+    padding: 5px;
+    border: 1px solid #fff; /* белый бордер */
     font-size: 16px;
-    white-space: pre;
-    overflow-wrap: normal;
-    overflow-x: scroll;
-    line-height: 1.7em;
-    text-indent: 5px;
+    color: #fff; /* белый текст */
+    background-color: #34c759; /* зеленый цвет, напоминающий цвет травы */
+    border-radius: 5px; /* закругленные углы */
 }
 
 #inputArea__message {
+    width: 74%;
+    height: 30px;
     margin-left: 5px;
-    width:74%;
-    height:30px;
-    resize: none;
-    border: 1px solid black;
+    padding: 5px;
+    border: 1px solid #fff; /* белый бордер */
     font-size: 16px;
-    white-space: pre;
-    overflow-wrap: normal;
-    overflow-x: scroll;
-    line-height: 1.7em;
-    text-indent: 5px;
+    color: #fff; /* белый текст */
+    background-color: #34c759; /* зеленый цвет, напоминающий цвет травы */
+    border-radius: 5px; /* закругленные углы */
 }
 
 #inputArea__sendButton {
+    width: 8%;
+    height: 30px;
     margin-left: 10px;
-    position: absolute;
-    width:8%;
-    height:30px;
-    border: 1px solid black;
+    border: none; /* удален бордер */
     font-size: 12px;
+    color: #fff; /* белый текст */
+    background-color: #2ecc71; /* более темный зеленый цвет */
+    border-radius: 5px; /* закругленные углы */
+    cursor: pointer;
+}
+
+#inputArea__sendButton:hover {
+    background-color: #29b759; /* еще более темный зеленый цвет */
+}
+
+/* Дополнительные стили */
+
+#inputArea__name:focus, #inputArea__message:focus {
+    border-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
