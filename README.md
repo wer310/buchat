@@ -2,8 +2,6 @@
 ## Setup
 
 ```
-git clone https://github.com/cuinjune/chat-room.git
-cd chat-room
 npm install dependencies
 npm start
 ```
