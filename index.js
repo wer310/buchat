@@ -9,18 +9,8 @@ var app = express();
 const crypto = require('crypto');
 
 function generateRandomString(ipAddress) {
-  // Создаём хеш из IP-адреса
   const hash = crypto.createHash('sha256');
   hash.update(ipAddress);
-
-  // Получаем хеш в виде строки
-  const hashString = hash.digest('hex');
-
-  // Генерируем строку из случайных символов длинной в 10 символов
-  const randomString = Array(10).fill(0).map(() => {
-    const charCode = hashString.charCodeAt(Math.floor(Math.random() * hashString.length));
-    return String.fromCharCode(charCode);
-  }).join('');
 
   return hashString.slice(10);
 }
@@ -37,7 +27,17 @@ function makeid(length) {
     return result;
 }
 
-//middleware: request handling
+const ipFilterMiddleware = (req, res, next) => {
+  var blockedIPs = JSON.parse(fs.readFileSync('db/banned.json', 'utf8'));
+  const clientIp = req.ip;
+  if (blockedIPs.includes(clientIp)) {
+    res.status(403).send('Access denied');
+  } else {
+    next();
+  }
+};
+
+app.use(ipFilterMiddleware);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -56,7 +56,7 @@ app.get('/api/v1/chat/data', getChatData);
 app.post('/api/v1/chat/data', addChatDataElement);
 
 //clear chat data
-app.delete('/api/v1/chat/data', clearChatData);
+//app.delete('/api/v1/chat/data', clearChatData);
 
 //get the number of visitors
 app.get('/api/v1/chat/numvisitors', getChatNumVisitors);
@@ -70,7 +70,8 @@ function getChatData(request, response) {
 }
 
 function addChatDataElement(request, response) {
-    var ip = request.headers['x-forwarded-for'] || request.socket.remoteAddress
+    var ip = request.headers['x-forwarded-for'] || request.socket.remoteAddress;
+	console.log(request.body.name + "(" + ip + "): " + request.body.message;
     chatObject.data.push({name: request.body.name + "(" + generateRandomString(ip) + ")", message: request.body.message});
     var data = JSON.stringify(chatObject, null, 2);
     fs.writeFile('db/data.json', data, finished);
