@@ -11,7 +11,7 @@ const crypto = require('crypto');
 function generateRandomString(ipAddress) {
   const hash = crypto.createHash('sha256');
   hash.update(ipAddress);
-
+  var hashString = hash.digest("hex");
   return hashString.slice(10);
 }
 

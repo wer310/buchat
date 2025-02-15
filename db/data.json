@@ -1,10 +1,5 @@
 {
   "description": "data used for the Chat Room application",
   "numVisitors": 1,
-  "data": [
-    {
-      "name": "Guest1(6627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3)",
-      "message": "Привет!"
-    }
-  ]
+  "data": []
 }
