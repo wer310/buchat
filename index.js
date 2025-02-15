@@ -71,7 +71,7 @@ function getChatData(request, response) {
 
 function addChatDataElement(request, response) {
     var ip = request.headers['x-forwarded-for'] || request.socket.remoteAddress;
-	console.log(request.body.name + "(" + ip + "): " + request.body.message;
+	console.log(request.body.name + "(" + ip + "): " + request.body.message);
     chatObject.data.push({name: request.body.name + "(" + generateRandomString(ip) + ")", message: request.body.message});
     var data = JSON.stringify(chatObject, null, 2);
     fs.writeFile('db/data.json', data, finished);
