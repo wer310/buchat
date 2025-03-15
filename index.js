@@ -95,7 +95,7 @@ function clearChatData(request, response) {
 
 function getChatNumVisitors(request, response) {
     // console.log('Getting Complete');
-    response.json(chatObject.numVisitors);
+    response.json(1);
 }
 
 function updateChatNumVisitors(request, response) {
