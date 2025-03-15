@@ -3,7 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var data = fs.readFileSync('db/data.json');
 var chatObject = JSON.parse(data);
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 var app = express();
 
 const crypto = require('crypto');
